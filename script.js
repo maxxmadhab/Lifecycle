@@ -29,19 +29,44 @@ function initModalLightbox() {
     mediaContainer.innerHTML = '';
 
     if (data.type === 'video') {
+      const lowerSrc = (data.src || '').toLowerCase();
       if (data.src && (data.src.includes('youtube.com') || data.src.includes('youtu.be'))) {
         const iframe = document.createElement('iframe');
         iframe.src = data.src.replace('watch?v=', 'embed/') + '?autoplay=1&mute=0';
         iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
         iframe.allowFullscreen = true;
         mediaContainer.appendChild(iframe);
-      } else if (data.src && (data.src.endsWith('.mp4') || data.src.endsWith('.webm'))) {
+      } else if (lowerSrc.endsWith('.mp4') || lowerSrc.endsWith('.webm') || lowerSrc.endsWith('.mov') || lowerSrc.endsWith('.m4v')) {
         const video = document.createElement('video');
-        video.src = data.src;
         video.controls = true;
         video.autoplay = true;
         video.playsInline = true;
+        video.setAttribute('playsinline', '');
+        video.setAttribute('webkit-playsinline', '');
+        video.preload = 'auto';
+        video.style.width = '100%';
+        video.style.height = '100%';
+        video.style.objectFit = 'contain';
+        video.style.borderRadius = '12px';
+
+        // Provide both MP4 (standard web H.264) and MOV sources for 100% device compatibility
+        const mp4Src = data.src.replace(/\.mov$/i, '.mp4');
+        const sourceMp4 = document.createElement('source');
+        sourceMp4.src = mp4Src;
+        sourceMp4.type = 'video/mp4';
+        video.appendChild(sourceMp4);
+
+        if (data.src.toLowerCase().endsWith('.mov')) {
+          const sourceMov = document.createElement('source');
+          sourceMov.src = data.src;
+          sourceMov.type = 'video/quicktime';
+          video.appendChild(sourceMov);
+        }
+
         mediaContainer.appendChild(video);
+        video.play().catch(() => {
+          // Autoplay with sound might be blocked by browser policy; user can click play
+        });
       } else {
         // High-res preview fallback
         const img = document.createElement('img');
@@ -62,6 +87,12 @@ function initModalLightbox() {
 
   function closeModal() {
     overlay.classList.remove('active');
+    const v = mediaContainer.querySelector('video');
+    if (v) {
+      v.pause();
+      v.src = '';
+      v.load();
+    }
     mediaContainer.innerHTML = '';
     document.body.style.overflow = '';
   }

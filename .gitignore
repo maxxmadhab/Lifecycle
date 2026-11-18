@@ -1,0 +1,9 @@
+# Ignore raw large camera/phone files (already converted to web .mp4 and .jpg)
+*.MOV
+*.mov
+*.HEIC
+*.heic
+
+# System and editor files
+.DS_Store
+Thumbs.db
