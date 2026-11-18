@@ -2,6 +2,7 @@
    PRODUCT LIFE-PROCESS – HIMACHAL PROVENANCE
    Design exact match to Product Life-Process Page v1 template
    Theme: #0E0D0C Dark, #E0B36A Gold Accents, Retro Camcorder UI
+   Full Mobile & Touch Responsiveness (320px - 4K)
    ═══════════════════════════════════════════════════════════════ */
 
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
@@ -11,12 +12,15 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
   scroll-behavior: smooth;
   background: #0E0D0C;
   color: #F2EEE6;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -24,6 +28,7 @@ body {
   background: #0E0D0C;
   color: #F2EEE6;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  width: 100%;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -34,12 +39,14 @@ body {
   background: #0E0D0C;
   color: #F2EEE6;
   font-family: 'Inter', sans-serif;
-  overflow: hidden;
+  overflow-x: hidden;
   position: relative;
   min-height: 100vh;
+  width: 100%;
 }
 
 .wrap {
+  width: 100%;
   max-width: 1320px;
   margin: 0 auto;
   padding: 0 40px;
@@ -64,13 +71,26 @@ body {
   font-weight: 400;
   margin: 8px 0 0;
   line-height: 1;
-  font-size: 88px;
+  font-size: clamp(40px, 7vw, 88px);
   color: #F2EEE6;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Fluid Hero Display Headline */
+.hero-headline {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-weight: 400;
+  margin: 8px 0 0;
+  line-height: 0.98;
+  font-size: clamp(44px, 9vw, 115px);
+  color: #F2EEE6;
+  word-wrap: break-word;
 }
 
 .cap {
-  font-size: 17px;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.55;
   color: #BDB6A8;
   margin: 0;
   max-width: 380px;
@@ -93,6 +113,7 @@ body {
   color: #E0B36A;
   animation: nudge 1.8s ease-in-out infinite;
   user-select: none;
+  flex-shrink: 0;
 }
 
 /* ── Horizontal Media Strip ────────────────────────────────── */
@@ -100,11 +121,14 @@ body {
   display: flex;
   align-items: center;
   overflow-x: auto;
+  overflow-y: hidden;
   padding: 56px 8px 48px;
   scroll-snap-type: x proximity;
   gap: 0;
   scrollbar-width: thin;
   scrollbar-color: #4A433A transparent;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pan-y;
 }
 
 .strip > * {
@@ -114,6 +138,10 @@ body {
 
 .strip::-webkit-scrollbar {
   height: 6px;
+}
+
+.strip::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .strip::-webkit-scrollbar-thumb {
@@ -133,6 +161,7 @@ body {
   animation: fl 6s ease-in-out infinite;
   cursor: pointer;
   transition: border-color .3s ease, transform .3s ease, box-shadow .3s ease;
+  user-select: none;
 }
 
 .cam.b {
@@ -370,7 +399,7 @@ body {
 .vc {
   display: flex;
   justify-content: center;
-  height: 150px;
+  height: 140px;
   align-items: center;
 }
 
@@ -437,8 +466,11 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 88px;
+  min-height: 80px;
+  padding: 12px 0;
   border-bottom: 1px solid rgba(63, 56, 47, .4);
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 .brand-link {
@@ -455,22 +487,27 @@ body {
   border-radius: 50%;
   background: #E0B36A;
   box-shadow: 0 0 8px #E0B36A;
+  flex-shrink: 0;
 }
 
 .nav-links {
   display: flex;
-  gap: 28px;
+  gap: 24px;
   font-size: 13px;
   color: #BDB6A8;
   letter-spacing: .1em;
   text-transform: uppercase;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .nav-links a {
   color: #BDB6A8;
   text-decoration: none;
   transition: color .2s ease;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .nav-links a:hover, .nav-links a.active {
@@ -491,6 +528,7 @@ body {
   background: transparent;
   cursor: pointer;
   transition: all .25s ease;
+  white-space: nowrap;
 }
 
 .qr-pill-btn:hover {
@@ -502,16 +540,19 @@ body {
 .geo-tag-pill {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 18px;
-  padding: 8px 18px;
+  gap: 8px 12px;
+  margin-top: 20px;
+  padding: 10px 18px;
   background: rgba(43, 39, 34, .65);
   border: 1px solid #3F382F;
-  border-radius: 999px;
+  border-radius: 20px;
   font-size: 12px;
-  letter-spacing: .08em;
+  letter-spacing: .06em;
   color: #BDB6A8;
   backdrop-filter: blur(8px);
+  max-width: 100%;
+  flex-wrap: wrap;
+  line-height: 1.4;
 }
 
 .geo-tag-pill span.coord {
@@ -522,11 +563,13 @@ body {
 /* ── Product Switcher Bar ──────────────────────────────────── */
 .product-switcher {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   padding-top: 24px;
   padding-bottom: 8px;
   overflow-x: auto;
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
 }
 
 .product-switcher::-webkit-scrollbar {
@@ -544,6 +587,7 @@ body {
   letter-spacing: .08em;
   white-space: nowrap;
   transition: all .2s ease;
+  flex-shrink: 0;
 }
 
 .switcher-tab:hover {
@@ -609,6 +653,8 @@ body {
 .spec-val {
   font-size: 15px;
   color: #F2EEE6;
+  line-height: 1.4;
+  word-break: break-word;
 }
 
 /* QR Code Showcase in Provenance Card */
@@ -646,11 +692,13 @@ body {
   font-size: 12px;
   letter-spacing: .08em;
   color: #BDB6A8;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
+  line-height: 1.45;
 }
 
 .btn-tag-action {
   width: 100%;
+  min-height: 44px;
   padding: 10px 16px;
   border-radius: 8px;
   border: 1px solid #E0B36A;
@@ -661,6 +709,9 @@ body {
   text-transform: uppercase;
   cursor: pointer;
   transition: all .2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-tag-action:hover {
@@ -728,6 +779,7 @@ body {
   background: #F2EEE6;
   border-radius: 6px;
   padding: 4px;
+  flex-shrink: 0;
 }
 
 .hub-qr-mini img, .hub-qr-mini svg {
@@ -745,7 +797,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 20px;
   opacity: 0;
   pointer-events: none;
   transition: opacity .3s ease;
@@ -768,19 +820,21 @@ body {
   display: flex;
   flex-direction: column;
   gap: 18px;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .modal-close-btn {
   position: absolute;
-  top: 18px;
-  right: 18px;
-  width: 36px;
-  height: 36px;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   border: 1px solid #3F382F;
   background: #17140F;
   color: #F2EEE6;
-  font-size: 20px;
+  font-size: 22px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -841,8 +895,8 @@ body {
   bottom: 18px;
   right: 22px;
   z-index: 99990;
-  padding: 8px 14px;
-  background: rgba(14, 13, 12, .88);
+  padding: 7px 14px;
+  background: rgba(14, 13, 12, .92);
   border: 1px solid #3F382F;
   border-radius: 999px;
   font-size: 11px;
@@ -850,7 +904,7 @@ body {
   text-transform: uppercase;
   color: #E0B36A;
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, .5);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, .6);
   pointer-events: auto;
   user-select: none;
   transition: border-color .2s ease;
@@ -860,28 +914,260 @@ body {
   border-color: #E0B36A;
 }
 
-/* ── Responsive Rules ──────────────────────────────────────── */
-@media (max-width: 900px) {
+/* ═══════════════════════════════════════════════════════════════
+   TABLET & MOBILE OPTIMIZATIONS
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Medium Screens (Tablets, <= 1024px) ────────────────────── */
+@media (max-width: 1024px) {
   .wrap {
-    padding: 0 20px;
-  }
-  .h {
-    font-size: 56px !important;
-  }
-  .geo-card-container {
-    grid-template-columns: 1fr;
-    padding: 24px;
-  }
-  .hub-grid {
-    grid-template-columns: 1fr;
+    padding: 0 28px;
   }
   .cam.v {
-    width: 320px;
+    width: 520px;
   }
+  .geo-card-container {
+    grid-template-columns: 1fr 280px;
+    gap: 32px;
+    padding: 36px;
+  }
+  .hub-grid {
+    gap: 24px;
+  }
+}
+
+/* ── Mobile Landscape & Small Tablets (<= 768px) ────────────── */
+@media (max-width: 768px) {
+  .wrap {
+    padding: 0 18px;
+  }
+
+  .nav-wrap {
+    min-height: 64px;
+    padding: 14px 0;
+    gap: 12px;
+  }
+
+  .brand-link .h {
+    font-size: 19px !important;
+  }
+
+  .nav-links {
+    gap: 14px;
+    font-size: 11px;
+    width: 100%;
+    justify-content: space-between;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+
+  .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hd2 {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .hd2 .cap {
+    max-width: 100%;
+  }
+
+  .hint {
+    align-self: flex-start;
+  }
+
+  /* Media Strip on Mobile */
+  .strip {
+    padding: 32px 0 36px;
+    scroll-padding: 0 18px;
+  }
+
+  /* Video and Photo Card widths on mobile: perfect peek preview */
+  .cam.v {
+    width: min(84vw, 360px);
+  }
+
   .cam {
-    width: 260px;
+    width: min(72vw, 260px);
+    border-radius: 16px;
+    padding: 10px 12px 12px;
   }
+
+  .cam::before {
+    right: 24px;
+    width: 36px;
+    height: 6px;
+    top: -6px;
+  }
+
+  .top {
+    height: 22px;
+  }
+
+  .lens {
+    width: 14px;
+    height: 14px;
+  }
+
+  .led {
+    width: 22px;
+    height: 5px;
+  }
+
+  /* Squiggly arrows scaling on mobile */
   .sq {
-    width: 80px;
+    width: 60px;
+    height: 48px;
+    margin: 0 -4px;
+  }
+
+  .sq path {
+    stroke-width: 2;
+  }
+
+  .vc {
+    height: 90px;
+  }
+
+  .vc .sq {
+    width: 50px;
+    height: 40px;
+  }
+
+  /* Hub Cards Stacking on Mobile */
+  .hub-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 32px 0 60px;
+  }
+
+  .hub-card {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 20px;
+    border-radius: 18px;
+  }
+
+  .hub-thumb {
+    aspect-ratio: 16/10;
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  /* Provenance Geo-Tag Card on Mobile */
+  .geo-card-container {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 24px 18px;
+    border-radius: 20px;
+  }
+
+  .geo-specs-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .qr-showcase {
+    padding: 20px 16px;
+  }
+
+  .qr-box {
+    width: 160px;
+    height: 160px;
+  }
+
+  /* Lightbox on mobile */
+  .modal-overlay {
+    padding: 14px;
+  }
+
+  .modal-dialog {
+    padding: 16px;
+    border-radius: 16px;
+    gap: 14px;
+  }
+
+  .modal-media-wrap {
+    max-height: 300px;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}
+
+/* ── Extra Small Phones (<= 480px) ──────────────────────────── */
+@media (max-width: 480px) {
+  .wrap {
+    padding: 0 14px;
+  }
+
+  .hero-headline {
+    font-size: clamp(36px, 11vw, 54px);
+    line-height: 1.02;
+  }
+
+  .geo-tag-pill {
+    font-size: 11px;
+    padding: 8px 14px;
+    border-radius: 14px;
+    gap: 6px 8px;
+  }
+
+  .product-switcher {
+    gap: 8px;
+    padding-top: 16px;
+  }
+
+  .switcher-tab {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+
+  .cam.v {
+    width: calc(100vw - 32px);
+  }
+
+  .cam {
+    width: calc(80vw - 20px);
+  }
+
+  .sq {
+    width: 44px;
+    height: 36px;
+    margin: 0 -6px;
+  }
+
+  .tg, .rec, .tc {
+    font-size: 11px;
+  }
+
+  .rec {
+    top: 12px;
+    right: 14px;
+  }
+
+  .tc {
+    top: 12px;
+    left: 36px;
+  }
+
+  .tg {
+    padding: 12px 14px;
+  }
+
+  .photo-credit {
+    bottom: 12px;
+    right: 12px;
+    padding: 5px 11px;
+    font-size: 10px;
+    letter-spacing: .08em;
   }
 }
