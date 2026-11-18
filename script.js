@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHorizontalStrips();
   initTimecodes();
   initGeoTagModal();
+  initDynamicQRCodes();
 });
 
 /* ── Lightbox Viewfinder Modal ──────────────────────────────── */
@@ -182,5 +183,33 @@ function initGeoTagModal() {
     btn.addEventListener('click', () => {
       window.print();
     });
+  });
+}
+
+/* ── Dynamic Live Domain QR Codes ──────────────────────────── */
+function initDynamicQRCodes() {
+  const isHttp = window.location.protocol.startsWith('http');
+  const baseUrl = isHttp && !window.location.host.includes('localhost') 
+    ? window.location.origin 
+    : 'https://lifecycle-gold.vercel.app';
+
+  // On individual product pages (jacket.html, sweater.html, gloves.html, scarf.html)
+  const mainQrBox = document.querySelector('.qr-box img');
+  if (mainQrBox) {
+    const pageName = window.location.pathname.split('/').pop() || 'index.html';
+    const targetUrl = isHttp && !window.location.host.includes('localhost')
+      ? window.location.href.split('#')[0].split('?')[0]
+      : `${baseUrl}/${pageName}`;
+    mainQrBox.src = `https://api.qrserver.com/v1/create-qr-code/?size=260x260&color=17-14-0F&bgcolor=F2-EE-E6&margin=2&data=${encodeURIComponent(targetUrl)}`;
+  }
+
+  // On index.html (the Master Hub cards)
+  document.querySelectorAll('.hub-card').forEach((card) => {
+    const href = card.getAttribute('href');
+    const miniQr = card.querySelector('.hub-qr-mini img');
+    if (miniQr && href) {
+      const fullProductUrl = `${baseUrl}/${href.replace(/^\//, '')}`;
+      miniQr.src = `https://api.qrserver.com/v1/create-qr-code/?size=120x120&color=17-14-0F&bgcolor=F2-EE-E6&margin=1&data=${encodeURIComponent(fullProductUrl)}`;
+    }
   });
 }
